@@ -1,262 +1,324 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="night">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌙 Night AI — Умный чат-помощник</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>🌙 Night AI — Advanced Neural Network</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         :root {
-            --bg-primary: #0a0a1a;
-            --bg-secondary: #15152b;
-            --bg-chat-user: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-            --bg-chat-ai: linear-gradient(135deg, #1a2a3a 0%, #2c3e50 100%);
-            --bg-input: rgba(255, 255, 255, 0.07);
-            --text-primary: #ffffff;
-            --text-secondary: #b0b7d6;
-            --accent-purple: #8a2be2;
-            --accent-blue: #00bfff;
-            --accent-green: #00ffaa;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            --border-radius: 20px;
+            --bg-deep: #0a0b0f;
+            --bg-surface: #151821;
+            --bg-card: #1e212e;
+            --primary: #8a5cf5;
+            --primary-glow: rgba(138, 92, 245, 0.4);
+            --secondary: #00d4ff;
+            --text: #f0f2ff;
+            --text-muted: #a0a8c9;
+            --success: #00ffaa;
+            --border: #2a2f42;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            --radius: 24px;
+            --radius-sm: 16px;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
         }
 
         body {
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            background: var(--bg-deep);
+            color: var(--text);
             min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(138, 92, 245, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(0, 212, 255, 0.1) 0%, transparent 25%);
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(100, 80, 255, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(255, 100, 255, 0.1) 0%, transparent 20%);
         }
 
         .container {
             width: 100%;
-            max-width: 900px;
-            background: var(--bg-secondary);
-            border-radius: var(--border-radius);
+            max-width: 1200px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-surface);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
             box-shadow: var(--shadow);
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* Шапка */
+        /* Header */
         .header {
-            background: linear-gradient(90deg, var(--accent-purple), #4a00e0);
-            padding: 25px;
-            text-align: center;
-            position: relative;
+            padding: 28px 40px;
+            background: linear-gradient(90deg, var(--bg-surface) 0%, var(--bg-card) 100%);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
         .logo {
             font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #fff, var(--accent-green));
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .tagline {
-            font-size: 1rem;
-            opacity: 0.9;
-            color: var(--text-secondary);
-        }
-
-        .user-badge {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 8px 15px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        /* Экран логина */
-        #loginScreen {
-            padding: 60px 40px;
-            text-align: center;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .login-title {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: var(--accent-blue);
-        }
-
-        .login-subtitle {
-            color: var(--text-secondary);
-            margin-bottom: 40px;
-        }
-
-        .login-input {
-            width: 100%;
-            max-width: 400px;
-            padding: 18px 25px;
-            margin: 20px auto;
-            border: none;
-            border-radius: 50px;
-            background: var(--bg-input);
-            color: white;
             font-size: 1.1rem;
-            text-align: center;
-            border: 2px solid transparent;
-            transition: all 0.3s;
+            color: var(--text-muted);
+            font-weight: 300;
         }
 
-        .login-input:focus {
-            outline: none;
-            border-color: var(--accent-purple);
-            box-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
-        }
-
-        .login-btn {
-            background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
-            color: white;
-            border: none;
-            padding: 18px 50px;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            margin-top: 20px;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(138, 43, 226, 0.4);
-        }
-
-        /* Чат */
-        #chatScreen {
-            display: none;
-            height: 70vh;
-            flex-direction: column;
-        }
-
-        .chat-container {
-            flex: 1;
+        .user-widget {
             display: flex;
-            flex-direction: column;
-            padding: 25px;
-        }
-
-        #chatLog {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            margin-bottom: 20px;
-            background: rgba(10, 10, 20, 0.5);
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            flex-direction: column;
+            align-items: center;
             gap: 20px;
         }
 
+        .model-selector {
+            padding: 12px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* Main Chat */
+        .chat-container {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 300px;
+            border-right: 1px solid var(--border);
+            padding: 30px;
+            background: var(--bg-card);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .new-chat-btn {
+            background: linear-gradient(135deg, var(--primary), #6a4af5);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: var(--radius-sm);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+
+        .new-chat-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--primary-glow);
+        }
+
+        .history {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .history-item:hover {
+            background: rgba(138, 92, 245, 0.1);
+            border-left-color: var(--primary);
+        }
+
+        .chat-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+            position: relative;
+        }
+
+        #chatMessages {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
         .message {
-            max-width: 75%;
-            padding: 18px 22px;
-            border-radius: 25px;
-            line-height: 1.5;
-            word-wrap: break-word;
-            animation: messageAppear 0.3s ease;
+            max-width: 85%;
+            animation: fadeInUp 0.4s ease;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .user-message {
             align-self: flex-end;
-            background: var(--bg-chat-user);
+            background: linear-gradient(135deg, var(--primary), #5a3fdc);
             color: white;
-            border-bottom-right-radius: 5px;
-            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
+            padding: 24px 32px;
+            border-radius: 28px 28px 8px 28px;
+            box-shadow: 0 10px 25px rgba(138, 92, 245, 0.3);
         }
 
         .ai-message {
             align-self: flex-start;
-            background: var(--bg-chat-ai);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom-left-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 32px;
+            border-radius: 28px 28px 28px 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .message-sender {
-            font-weight: bold;
-            font-size: 0.85rem;
-            margin-bottom: 8px;
+        .message-header {
             display: flex;
             align-items: center;
-            gap: 8px;
-        }
-
-        .user-message .message-sender {
-            color: #b3e0ff;
-        }
-
-        .ai-message .message-sender {
-            color: var(--accent-green);
-        }
-
-        .message-text {
-            font-size: 1.05rem;
-        }
-
-        /* Панель ввода */
-        .input-area {
-            display: flex;
             gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .user-avatar {
+            background: linear-gradient(135deg, #ff7eea, #ff4d8d);
+        }
+
+        .ai-avatar {
+            background: linear-gradient(135deg, var(--secondary), #0088cc);
+        }
+
+        .message-content {
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .message-content img {
+            max-width: 100%;
+            border-radius: 16px;
+            margin-top: 15px;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 8px;
+            padding: 25px;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            align-self: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .typing-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .input-container {
+            margin-top: 30px;
+            position: relative;
         }
 
         #userInput {
-            flex: 1;
-            padding: 20px 25px;
-            border: none;
-            border-radius: 50px;
-            background: var(--bg-input);
-            color: white;
+            width: 100%;
+            padding: 26px 30px;
+            padding-right: 80px;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: var(--radius);
+            color: var(--text);
             font-size: 1.1rem;
-            border: 2px solid transparent;
+            resize: none;
+            min-height: 70px;
+            max-height: 200px;
             transition: all 0.3s;
         }
 
         #userInput:focus {
             outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 20px rgba(0, 191, 255, 0.3);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-glow);
         }
 
         #sendBtn {
-            background: linear-gradient(90deg, var(--accent-green), #00cc88);
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            width: 60px;
-            height: 60px;
             border-radius: 50%;
             font-size: 1.5rem;
             cursor: pointer;
-            transition: transform 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s;
         }
 
         #sendBtn:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) rotate(15deg);
+            box-shadow: 0 10px 30px var(--primary-glow);
         }
 
         #sendBtn:disabled {
@@ -265,390 +327,308 @@
             transform: none;
         }
 
-        .typing-indicator {
-            padding: 15px;
-            color: var(--text-secondary);
-            font-style: italic;
-            text-align: center;
+        /* Footer */
+        .footer {
+            padding: 25px 40px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
-        /* Админ-панель */
-        #adminPanel {
-            background: rgba(0, 20, 40, 0.8);
-            margin: 25px;
-            padding: 25px;
-            border-radius: var(--border-radius);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            display: none;
-        }
-
-        .admin-title {
-            color: var(--accent-green);
-            margin-bottom: 20px;
+        .powered-by {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .admin-section {
-            margin-bottom: 25px;
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar { display: none; }
+            .chat-main { padding: 25px; }
+            .message { max-width: 95%; }
         }
 
-        #adminChats {
-            max-height: 200px;
-            overflow-y: auto;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-
-        .admin-chat-item {
-            padding: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            cursor: pointer;
-            transition: background 0.2s;
-            border-radius: 10px;
-            margin-bottom: 8px;
-        }
-
-        .admin-chat-item:hover, .admin-chat-item.selected {
-            background: rgba(100, 100, 255, 0.2);
-        }
-
-        #adminResponse {
-            width: 100%;
-            padding: 18px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--accent-purple);
-            border-radius: 15px;
-            color: white;
-            font-size: 1rem;
-            margin-bottom: 15px;
-            min-height: 100px;
-        }
-
-        #adminSend {
-            background: linear-gradient(90deg, #ff416c, #ff4b2b);
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: transform 0.3s;
-        }
-
-        #adminSend:hover {
-            transform: translateY(-3px);
-        }
-
-        #adminToggle {
-            background: transparent;
-            color: var(--text-secondary);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px 25px;
-            border-radius: 50px;
-            cursor: pointer;
-            margin: 0 auto;
-            display: block;
-            transition: all 0.3s;
-        }
-
-        #adminToggle:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--accent-blue);
-        }
-
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes messageAppear {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        /* Адаптив */
         @media (max-width: 768px) {
-            .container { border-radius: 15px; }
-            .header { padding: 20px; }
-            .logo { font-size: 2.2rem; }
-            .user-badge { position: static; margin-top: 15px; display: inline-block; }
-            #chatLog { padding: 15px; }
-            .message { max-width: 90%; }
-            .input-area { flex-direction: column; }
-            #sendBtn { width: 100%; border-radius: 20px; height: 55px; }
+            .header { flex-direction: column; gap: 20px; text-align: center; }
+            .user-widget { flex-direction: column; }
+            .container { height: auto; min-height: 100vh; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="logo"><i class="fas fa-moon"></i> Night AI</div>
-            <div class="tagline">Самый продвинутый ИИ для творчества и решения задач</div>
-            <div id="userBadge" class="user-badge" style="display: none;">
-                <i class="fas fa-user"></i> <span id="currentUserNameDisplay">Гость</span>
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo">
+                    <i class="fas fa-stars"></i> Night AI
+                </div>
+                <div class="tagline">
+                    Реальная нейросеть нового поколения. Пишет код, генерирует идеи, решает задачи.
+                </div>
             </div>
-        </div>
+            <div class="user-widget">
+                <select class="model-selector" id="modelSelector">
+                    <option value="deepseek">🧠 DeepSeek (Рекомендуется)</option>
+                    <option value="google">🤖 Google Gemini</option>
+                    <option value="openai">⚡ GPT-4 Turbo</option>
+                </select>
+                <div class="avatar user-avatar" id="userAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </header>
 
-        <!-- Экран логина -->
-        <div id="loginScreen">
-            <h1 class="login-title">Добро пожаловать в Night AI</h1>
-            <p class="login-subtitle">Введите ваш уникальный логин, чтобы начать диалог с нейросетью</p>
-            <input type="text" id="usernameInput" class="login-input" placeholder="Например: Алексей_Креатив" maxlength="20">
-            <button class="login-btn" onclick="login()"><i class="fas fa-rocket"></i> Войти в чат</button>
-            <p id="loginStatus" style="margin-top: 20px; color: #ff9999;"></p>
-        </div>
+        <!-- Main Chat -->
+        <div class="chat-container">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <button class="new-chat-btn" id="newChatBtn">
+                    <i class="fas fa-plus"></i> Новый диалог
+                </button>
+                <div class="history" id="chatHistory">
+                    <div class="history-item">
+                        <div><strong>Идея для стартапа</strong></div>
+                        <small>Только что</small>
+                    </div>
+                    <div class="history-item">
+                        <div><strong>Код на Python</strong></div>
+                        <small>Вчера</small>
+                    </div>
+                    <div class="history-item">
+                        <div><strong>Помощь с физикой</strong></div>
+                        <small>2 дня назад</small>
+                    </div>
+                </div>
+            </aside>
 
-        <!-- Экран чата -->
-        <div id="chatScreen">
-            <div class="chat-container">
-                <div id="chatLog">
+            <!-- Chat Messages -->
+            <main class="chat-main">
+                <div id="chatMessages">
                     <div class="message ai-message">
-                        <div class="message-sender"><i class="fas fa-robot"></i> Night AI</div>
-                        <div class="message-text">Привет! Я Night AI — нейросеть нового поколения. Готова ответить на ваши вопросы по технологиям, творчеству, науке и многому другому. Чем могу помочь?</div>
+                        <div class="message-header">
+                            <div class="avatar ai-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <strong>Night AI</strong>
+                                <div style="font-size: 0.9rem; color: var(--text-muted);">Готов к работе</div>
+                            </div>
+                        </div>
+                        <div class="message-content">
+                            <p>Привет! Я <strong>Night AI</strong> — настоящая нейросеть, работающая на продвинутых моделях.</p>
+                            <p>Я могу:</p>
+                            <ul>
+                                <li>📝 Писать и объяснять код на любом языке</li>
+                                <li>💡 Генерировать творческие идеи и тексты</li>
+                                <li>🔍 Решать сложные задачи и отвечать на вопросы</li>
+                                <li>🌐 Анализировать данные и предоставлять insights</li>
+                            </ul>
+                            <p>Просто начните печатать. Я отвечу <strong>реальным, полезным контентом</strong>.</p>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Typing Indicator -->
                 <div class="typing-indicator" id="typingIndicator" style="display: none;">
-                    <i class="fas fa-ellipsis-h"></i> Night AI печатает ответ...
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <span style="margin-left: 15px;">Night AI генерирует ответ...</span>
                 </div>
 
-                <div class="input-area">
-                    <input type="text" id="userInput" placeholder="Введите ваше сообщение...">
-                    <button id="sendBtn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+                <!-- Input -->
+                <div class="input-container">
+                    <textarea id="userInput" placeholder="Задайте любой вопрос Night AI..." rows="2"></textarea>
+                    <button id="sendBtn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
                 </div>
-            </div>
-
-            <!-- Кнопка и панель админа -->
-            <button id="adminToggle" onclick="toggleAdminPanel()"><i class="fas fa-user-secret"></i> Панель управления</button>
-            <div id="adminPanel">
-                <h3 class="admin-title"><i class="fas fa-cogs"></i> Секретная панель администратора</h3>
-                
-                <div class="admin-section">
-                    <h4><i class="fas fa-users"></i> Активные пользователи</h4>
-                    <div id="adminChats">
-                        <!-- Список пользователей появится здесь -->
-                    </div>
-                </div>
-
-                <div class="admin-section">
-                    <h4><i class="fas fa-reply"></i> Ответ от имени Night AI</h4>
-                    <p>Выбран: <strong id="selectedUser">никто</strong></p>
-                    <textarea id="adminResponse" placeholder="Введите текст ответа..."></textarea>
-                    <button id="adminSend" onclick="sendAdminResponse()"><i class="fas fa-share-square"></i> Отправить как ИИ</button>
-                </div>
-            </div>
+            </main>
         </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div>
+                © 2024 <strong>Night AI</strong>. Все права защищены.
+            </div>
+            <div class="powered-by">
+                <span>Powered by</span>
+                <span style="color: var(--success);">Advanced Neural Networks</span>
+            </div>
+        </footer>
     </div>
 
     <script>
-        // ==================== КОНСТАНТЫ ====================
-        const ADMIN_CODE = "ADMIN2024";
-        const STORAGE_KEY = "nightAI_user";
+        // ==================== КОНФИГУРАЦИЯ ====================
+        const API_BASE_URL = 'https://night-ai-proxy.ver908j.workers.dev';
+        const MODELS = {
+            deepseek: 'deepseek-chat',
+            google: 'gemini-pro',
+            openai: 'gpt-4'
+        };
 
-        // ==================== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ====================
-        let currentUser = null;
-        let allChats = {};
-        let selectedAdminUser = null;
-        let messageQueue = {};
-
-        // ==================== ЗАГРУЗКА И СОХРАНЕНИЕ ЛОГИНА ====================
-        function loadUser() {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            if (saved) {
-                currentUser = saved;
-                showChatScreen();
-            }
-        }
-
-        function saveUser(username) {
-            localStorage.setItem(STORAGE_KEY, username);
-        }
-
-        function logout() {
-            localStorage.removeItem(STORAGE_KEY);
-            currentUser = null;
-            showLoginScreen();
-        }
-
-        // ==================== ЛОГИН ====================
-        function login() {
-            const input = document.getElementById('usernameInput');
-            const username = input.value.trim().replace(/[^a-zA-Z0-9а-яА-Я_]/g, '');
-            if (username.length < 2) {
-                showMessage('loginStatus', "Логин слишком короткий!", true);
-                return;
-            }
-            if (username.length > 20) {
-                showMessage('loginStatus', "Логин слишком длинный!", true);
-                return;
-            }
-
-            currentUser = username;
-            saveUser(username);
-            showChatScreen();
-            showMessage('chatLog', `👋 Добро пожаловать, ${username}!`, false, 'ai');
-        }
-
-        function showLoginScreen() {
-            document.getElementById('loginScreen').style.display = 'block';
-            document.getElementById('chatScreen').style.display = 'none';
-            document.getElementById('userBadge').style.display = 'none';
-        }
-
-        function showChatScreen() {
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('chatScreen').style.display = 'flex';
-            document.getElementById('userBadge').style.display = 'block';
-            document.getElementById('currentUserNameDisplay').textContent = currentUser;
-            document.getElementById('userInput').focus();
-            updateChatLog();
-        }
-
-        // ==================== ОСНОВНОЙ ЧАТ ====================
-        function sendMessage() {
-            const input = document.getElementById('userInput');
-            const text = input.value.trim();
-            if (!text || !currentUser) return;
-
-            // Сохраняем сообщение
-            if (!allChats[currentUser]) allChats[currentUser] = [];
-            allChats[currentUser].push({ sender: currentUser, text, time: new Date() });
-            appendMessage(currentUser, text, 'user');
-            input.value = '';
-
-            // Симуляция печати ИИ
-            document.getElementById('typingIndicator').style.display = 'block';
-            document.getElementById('sendBtn').disabled = true;
-
-            // Ставим в очередь для админа
-            if (!messageQueue[currentUser]) messageQueue[currentUser] = [];
-            messageQueue[currentUser].push(text);
-
-            // Авто-ответ через 5 сек, если админ не ответил
-            setTimeout(() => {
-                if (messageQueue[currentUser] && messageQueue[currentUser].includes(text)) {
-                    const replies = [
-                        "Интересный запрос! Я анализирую...",
-                        "Дайте мне секунду, чтобы подумать над этим.",
-                        "Сложный вопрос! Нужно больше контекста.",
-                        "Я ещё учусь, но скоро дам точный ответ."
-                    ];
-                    const reply = replies[Math.floor(Math.random() * replies.length)];
-                    if (!allChats[currentUser]) allChats[currentUser] = [];
-                    allChats[currentUser].push({ sender: 'Night AI', text: reply, time: new Date() });
-                    appendMessage('Night AI', reply, 'ai');
-                    document.getElementById('typingIndicator').style.display = 'none';
-                    document.getElementById('sendBtn').disabled = false;
-                }
-            }, 5000);
-        }
-
-        function appendMessage(sender, text, type) {
-            const chatLog = document.getElementById('chatLog');
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `message ${type}-message`;
-            msgDiv.innerHTML = `
-                <div class="message-sender">
-                    <i class="fas ${type === 'user' ? 'fa-user' : 'fa-robot'}"></i> ${sender}
-                </div>
-                <div class="message-text">${text}</div>
-            `;
-            chatLog.appendChild(msgDiv);
-            chatLog.scrollTop = chatLog.scrollHeight;
-        }
-
-        function updateChatLog() {
-            const chatLog = document.getElementById('chatLog');
-            chatLog.innerHTML = '';
-            if (allChats[currentUser]) {
-                allChats[currentUser].forEach(msg => {
-                    appendMessage(msg.sender, msg.text, msg.sender === currentUser ? 'user' : 'ai');
-                });
-            } else {
-                appendMessage('Night AI', 'Привет! Я Night AI. Задайте мне вопрос.', 'ai');
-            }
-        }
-
-        // ==================== АДМИН-ПАНЕЛЬ ====================
-        function toggleAdminPanel() {
-            const panel = document.getElementById('adminPanel');
-            const isHidden = panel.style.display === 'none';
-            panel.style.display = isHidden ? 'block' : 'none';
-            if (isHidden) checkAdminAccess();
-        }
-
-        function checkAdminAccess() {
-            const code = prompt("Введите мастер-код доступа:");
-            if (code === ADMIN_CODE) {
-                loadAdminPanel();
-                setInterval(loadAdminPanel, 2000);
-            } else {
-                alert("Доступ запрещён!");
-                document.getElementById('adminPanel').style.display = 'none';
-            }
-        }
-
-        function loadAdminPanel() {
-            const container = document.getElementById('adminChats');
-            container.innerHTML = '';
-            for (const user in allChats) {
-                const lastMsg = allChats[user][allChats[user].length - 1];
-                const div = document.createElement('div');
-                div.className = `admin-chat-item ${selectedAdminUser === user ? 'selected' : ''}`;
-                div.innerHTML = `<strong>${user}</strong>: ${lastMsg ? lastMsg.text.substring(0, 50) + '...' : 'нет сообщений'}`;
-                div.onclick = () => {
-                    selectedAdminUser = user;
-                    document.getElementById('selectedUser').textContent = user;
-                    loadAdminPanel();
-                };
-                container.appendChild(div);
-            }
-        }
-
-        function sendAdminResponse() {
-            const text = document.getElementById('adminResponse').value.trim();
-            if (!selectedAdminUser || !text) return alert("Выберите пользователя и введите текст!");
-
-            if (!allChats[selectedAdminUser]) allChats[selectedAdminUser] = [];
-            allChats[selectedAdminUser].push({ sender: 'Night AI', text, time: new Date() });
-
-            if (selectedAdminUser === currentUser) {
-                appendMessage('Night AI', text, 'ai');
-                document.getElementById('typingIndicator').style.display = 'none';
-                document.getElementById('sendBtn').disabled = false;
-            }
-
-            document.getElementById('adminResponse').value = '';
-            alert("Ответ отправлен!");
-        }
-
-        // ==================== УТИЛИТЫ ====================
-        function showMessage(elementId, text, isError, sender) {
-            const el = document.getElementById(elementId);
-            if (sender) {
-                appendMessage(sender === 'ai' ? 'Night AI' : currentUser, text, sender);
-            } else {
-                el.textContent = text;
-                el.style.color = isError ? '#ff5555' : '#55ff55';
-                setTimeout(() => el.textContent = '', 3000);
-            }
-        }
+        // ==================== СОСТОЯНИЕ ====================
+        let currentChat = [];
+        let isProcessing = false;
 
         // ==================== ИНИЦИАЛИЗАЦИЯ ====================
         document.addEventListener('DOMContentLoaded', () => {
-            loadUser();
-            document.getElementById('userInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') sendMessage();
+            // Авто-расширение textarea
+            const textarea = document.getElementById('userInput');
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
             });
-            document.getElementById('adminResponse').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' && e.ctrlKey) sendAdminResponse();
+
+            // Отправка по Enter (Shift+Enter для новой строки)
+            textarea.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
             });
+
+            // Загрузка истории из localStorage
+            loadChatHistory();
+        });
+
+        // ==================== ОСНОВНЫЕ ФУНКЦИИ ====================
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message || isProcessing) return;
+
+            // Добавляем сообщение пользователя
+            addMessage('user', message);
+            input.value = '';
+            input.style.height = 'auto';
+            isProcessing = true;
+            document.getElementById('typingIndicator').style.display = 'flex';
+            document.getElementById('sendBtn').disabled = true;
+
+            // Сохраняем в историю
+            currentChat.push({ role: 'user', content: message });
+            saveChatToHistory(message);
+
+            // Выбираем модель
+            const modelKey = document.getElementById('modelSelector').value;
+            const model = MODELS[modelKey];
+
+            try {
+                // Отправляем запрос на наш прокси-сервер
+                const response = await fetch(`${API_BASE_URL}/api/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        message: message,
+                        model: model,
+                        chatHistory: currentChat.slice(-10) // Последние 10 сообщений для контекста
+                    })
+                });
+
+                if (!response.ok) throw new Error(`Ошибка: ${response.status}`);
+
+                const data = await response.json();
+                
+                // Добавляем ответ AI
+                addMessage('ai', data.reply);
+                currentChat.push({ role: 'assistant', content: data.reply });
+
+            } catch (error) {
+                console.error('Ошибка:', error);
+                addMessage('ai', `⚠️ Ошибка соединения. Убедитесь, что прокси-сервер развернут. Подробности в консоли.`);
+            } finally {
+                document.getElementById('typingIndicator').style.display = 'none';
+                document.getElementById('sendBtn').disabled = false;
+                isProcessing = false;
+            }
+        }
+
+        function addMessage(sender, content) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+
+            const avatarClass = sender === 'user' ? 'user-avatar' : 'ai-avatar';
+            const avatarIcon = sender === 'user' ? 'fa-user' : 'fa-robot';
+            const senderName = sender === 'user' ? 'Вы' : 'Night AI';
+
+            // Преобразуем markdown в HTML, если это ответ AI
+            const formattedContent = sender === 'ai' ? marked.parse(content) : content;
+
+            messageDiv.innerHTML = `
+                <div class="message-header">
+                    <div class="avatar ${avatarClass}">
+                        <i class="fas ${avatarIcon}"></i>
+                    </div>
+                    <div>
+                        <strong>${senderName}</strong>
+                        <div style="font-size: 0.9rem; color: var(--text-muted);">
+                            ${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </div>
+                    </div>
+                </div>
+                <div class="message-content">
+                    ${formattedContent}
+                </div>
+            `;
+
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function saveChatToHistory(message) {
+            const history = JSON.parse(localStorage.getItem('nightAI_history') || '[]');
+            history.unshift({
+                title: message.substring(0, 50) + (message.length > 50 ? '...' : ''),
+                timestamp: new Date().toISOString(),
+                preview: message.substring(0, 100)
+            });
+            if (history.length > 20) history.pop();
+            localStorage.setItem('nightAI_history', JSON.stringify(history));
+            updateHistoryUI(history);
+        }
+
+        function loadChatHistory() {
+            const history = JSON.parse(localStorage.getItem('nightAI_history') || '[]');
+            updateHistoryUI(history);
+        }
+
+        function updateHistoryUI(history) {
+            const container = document.getElementById('chatHistory');
+            container.innerHTML = history.map(item => `
+                <div class="history-item">
+                    <div><strong>${item.title}</strong></div>
+                    <small>${new Date(item.timestamp).toLocaleDateString()}</small>
+                </div>
+            `).join('');
+        }
+
+        // ==================== КНОПКА НОВОГО ЧАТА ====================
+        document.getElementById('newChatBtn').addEventListener('click', () => {
+            if (confirm('Начать новый диалог? Текущая история будет сохранена.')) {
+                currentChat = [];
+                document.getElementById('chatMessages').innerHTML = `
+                    <div class="message ai-message">
+                        <div class="message-header">
+                            <div class="avatar ai-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div>
+                                <strong>Night AI</strong>
+                                <div style="font-size: 0.9rem; color: var(--text-muted);">Готов к работе</div>
+                            </div>
+                        </div>
+                        <div class="message-content">
+                            <p>Новый диалог начат. Чем могу помочь?</p>
+                        </div>
+                    </div>
+                `;
+            }
         });
     </script>
 </body>
