@@ -3,215 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌙 Night AI — Next Generation Neural Network</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <title>🌙 Night AI | Регистрация и Чат</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: linear-gradient(135deg, #0a0a2a, #1a0033); color: #e0e0ff; min-height: 100vh; overflow-x: hidden; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        header { text-align: center; padding: 30px 0; border-bottom: 1px solid rgba(100, 100, 255, 0.3); }
-        .logo { font-size: 3em; margin-bottom: 10px; color: #8a2be2; text-shadow: 0 0 15px #9370db; }
-        .tagline { font-size: 1.2em; opacity: 0.8; margin-bottom: 20px; }
-        .main { display: flex; flex-wrap: wrap; gap: 30px; margin-top: 30px; }
-        .chat-section { flex: 3; min-width: 300px; }
-        .admin-section { flex: 2; min-width: 250px; background: rgba(20, 20, 60, 0.7); padding: 20px; border-radius: 15px; border: 1px solid #4444dd; }
-        .chat-box { background: rgba(10, 10, 40, 0.8); border-radius: 15px; padding: 20px; height: 500px; overflow-y: auto; border: 1px solid #333399; margin-bottom: 20px; }
-        .message { margin-bottom: 15px; padding: 12px 18px; border-radius: 18px; max-width: 85%; clear: both; }
-        .user-message { background: linear-gradient(90deg, #3a3a99, #5a5ac9); float: right; border-bottom-right-radius: 5px; }
-        .ai-message { background: linear-gradient(90deg, #2a2a66, #4a4aa6); float: left; border-bottom-left-radius: 5px; }
-        .typing { display: inline-block; width: 10px; height: 10px; background: #9370db; border-radius: 50%; margin-left: 5px; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-        .input-area { display: flex; gap: 10px; }
-        #userInput { flex-grow: 1; padding: 15px; border-radius: 25px; border: none; background: rgba(30, 30, 70, 0.9); color: white; font-size: 1em; }
-        #sendBtn { padding: 15px 25px; border-radius: 25px; border: none; background: linear-gradient(90deg, #8a2be2, #4b0082); color: white; font-weight: bold; cursor: pointer; }
-        #sendBtn:hover { background: linear-gradient(90deg, #9b3cf3, #5b00a2); }
-        .admin-title { color: #ff6b9d; margin-bottom: 15px; font-size: 1.5em; }
-        #adminCode { width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 10px; border: none; background: rgba(40, 40, 80, 0.9); color: white; }
-        #adminAccessBtn { width: 100%; padding: 12px; border-radius: 10px; border: none; background: linear-gradient(90deg, #ff416c, #ff4b2b); color: white; font-weight: bold; cursor: pointer; }
-        .hidden { display: none; }
-        #adminPanel { margin-top: 20px; }
-        .chat-list { max-height: 300px; overflow-y: auto; margin-bottom: 15px; }
-        .chat-item { padding: 10px; border-bottom: 1px solid #444; cursor: pointer; }
-        .chat-item:hover { background: rgba(255, 255, 255, 0.1); }
-        #responseInput { width: 100%; padding: 10px; margin-top: 10px; border-radius: 10px; border: none; background: rgba(40, 40, 80, 0.9); color: white; }
-        #sendResponseBtn { width: 100%; padding: 10px; margin-top: 10px; border-radius: 10px; border: none; background: linear-gradient(90deg, #00c6ff, #0072ff); color: white; font-weight: bold; cursor: pointer; }
-        footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(100, 100, 255, 0.3); font-size: 0.9em; opacity: 0.7; }
-        @media (max-width: 768px) { .main { flex-direction: column; } .chat-box { height: 400px; } }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.6; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: #161b22; border-radius: 10px; padding: 20px; border: 1px solid #30363d; }
+        h1, h2 { color: #58a6ff; margin-bottom: 15px; text-align: center; }
+        .hidden { display: none !important; }
+        #loginScreen { text-align: center; padding: 40px 20px; }
+        #loginScreen input { padding: 12px; width: 80%; max-width: 300px; margin: 10px auto; display: block; border: 1px solid #30363d; border-radius: 5px; background: #0d1117; color: white; }
+        #loginScreen button { padding: 12px 30px; background: #238636; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        #loginScreen button:hover { background: #2ea043; }
+        .chat-container { display: flex; flex-direction: column; height: 70vh; }
+        #chatLog { flex-grow: 1; overflow-y: auto; border: 1px solid #30363d; border-radius: 5px; padding: 15px; margin-bottom: 15px; background: #0d1117; }
+        .message { margin-bottom: 10px; padding: 8px 12px; border-radius: 8px; max-width: 80%; word-wrap: break-word; }
+        .user-message { background: #21262d; align-self: flex-end; margin-left: auto; }
+        .ai-message { background: #1c2b3a; align-self: flex-start; }
+        .message-sender { font-weight: bold; color: #58a6ff; font-size: 0.9em; }
+        #userInput { width: 100%; padding: 12px; border: 1px solid #30363d; border-radius: 5px; background: #0d1117; color: white; margin-bottom: 10px; }
+        #sendBtn { width: 100%; padding: 12px; background: #1f6feb; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        #sendBtn:disabled { background: #484f58; cursor: not-allowed; }
+        #adminPanel { margin-top: 20px; padding: 15px; border: 1px solid #30363d; border-radius: 5px; background: #0d1117; }
+        #adminToggle { background: #da3633; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; margin-bottom: 15px; }
+        #adminCodeInput { width: 100%; padding: 10px; margin-bottom: 10px; background: #161b22; border: 1px solid #30363d; color: white; border-radius: 5px; }
+        #adminChats { max-height: 200px; overflow-y: auto; margin-bottom: 15px; padding: 10px; border: 1px solid #30363d; border-radius: 5px; }
+        .admin-chat-item { padding: 8px; border-bottom: 1px solid #30363d; cursor: pointer; }
+        .admin-chat-item:hover { background: #1c2b3a; }
+        #adminResponse { width: 100%; padding: 10px; margin-bottom: 10px; background: #161b22; border: 1px solid #30363d; color: white; border-radius: 5px; }
+        #adminSend { width: 100%; padding: 10px; background: #238636; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        .status { font-size: 0.9em; color: #8b949e; text-align: center; margin-top: 10px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="logo"><i class="fas fa-moon"></i> Night AI</div>
-            <div class="tagline">Самый передовой искусственный интеллект для креативных задач</div>
-            <div style="font-size: 0.9em; margin-top: 10px; color: #aaa;">Версия 4.2 | Нейросеть активна</div>
-        </header>
-        <div class="main">
-            <section class="chat-section">
-                <h2><i class="fas fa-comments"></i> Диалог с Night AI</h2>
-                <div class="chat-box" id="chatBox">
-                    <div class="message ai-message">
-                        <strong>Night AI:</strong> Привет! Я Night AI — нейросеть нового поколения. Спроси меня о чём угодно: технологии, творчество, наука, философия. <span id="typed"></span>
-                    </div>
-                </div>
-                <div class="input-area">
-                    <input type="text" id="userInput" placeholder="Введите ваш запрос здесь...">
-                    <button id="sendBtn"><i class="fas fa-paper-plane"></i> Отправить</button>
-                </div>
-                <div style="margin-top: 15px; font-size: 0.8em; color: #888;">
-                    <i class="fas fa-info-circle"></i> Night AI может обрабатывать запросы с задержкой до 30 секунд.
-                </div>
-            </section>
-            <section class="admin-section">
-                <h3 class="admin-title"><i class="fas fa-user-secret"></i> Секретная панель (для разработчика)</h3>
-                <input type="password" id="adminCode" placeholder="Введите мастер-код доступа">
-                <button id="adminAccessBtn"><i class="fas fa-unlock"></i> Получить доступ</button>
-                <div id="adminPanel" class="hidden">
-                    <h4><i class="fas fa-users"></i> Активные диалоги</h4>
-                    <div class="chat-list" id="chatList"></div>
-                    <h4><i class="fas fa-reply"></i> Ответ от имени ИИ</h4>
-                    <textarea id="responseInput" rows="3" placeholder="Введите ответ, который увидит пользователь..."></textarea>
-                    <button id="sendResponseBtn"><i class="fas fa-share-square"></i> Отправить как Night AI</button>
-                    <div style="margin-top: 15px; font-size: 0.7em; color: #aaa;">
-                        <i class="fas fa-exclamation-triangle"></i> Эта панель видна только вам. Не сообщайте код посторонним.
-                    </div>
-                </div>
-            </section>
+        <!-- Экран входа -->
+        <div id="loginScreen">
+            <h1>🌙 Night AI</h1>
+            <p>Введите ваш логин для входа в нейросеть</p>
+            <input type="text" id="usernameInput" placeholder="Ваш логин (например, Alex)" maxlength="20">
+            <button onclick="login()">Войти в чат</button>
+            <p class="status" id="loginStatus"></p>
         </div>
-        <footer>
-            <p>© 2024 Night AI Project. Все права на нейросеть защищены. | <a href="#" style="color: #8a2be2;">Условия использования</a> | <a href="#" style="color: #8a2be2;">Конфиденциальность</a></p>
-            <p style="margin-top: 5px;">Работает на технологии NeuroWeb v4.2 | Статус: <span style="color: #7cfc00;">● Онлайн</span></p>
-        </footer>
+
+        <!-- Основной интерфейс чата (скрыт до входа) -->
+        <div id="chatScreen" class="hidden">
+            <h2>Диалог с <span id="currentUserName"></span> <small style="color:#8b949e;">(Night AI v4.2)</small></h2>
+            <div class="chat-container">
+                <div id="chatLog"></div>
+                <input type="text" id="userInput" placeholder="Введите ваше сообщение..." autocomplete="off">
+                <button id="sendBtn" onclick="sendMessage()">Отправить</button>
+                <p class="status" id="aiStatus">Night AI онлайн. Задайте вопрос.</p>
+            </div>
+
+            <!-- Секретная админ-панель -->
+            <div id="adminPanel" class="hidden">
+                <h3>👁️ Секретная панель управления</h3>
+                <input type="password" id="adminCodeInput" placeholder="Введите мастер-код (по умолчанию: ADMIN)">
+                <button onclick="checkAdminCode()">Получить доступ</button>
+                <div id="adminChatsContainer" class="hidden">
+                    <h4>Активные пользователи:</h4>
+                    <div id="adminChats"></div>
+                    <h4>Ответ от имени ИИ:</h4>
+                    <textarea id="adminResponse" rows="3" placeholder="Введите ответ, который увидит пользователь..."></textarea>
+                    <button id="adminSend" onclick="sendAdminResponse()">Отправить как Night AI</button>
+                    <p class="status">Выбран пользователь: <span id="selectedUser">никто</span></p>
+                </div>
+            </div>
+            <button id="adminToggle" onclick="toggleAdminPanel()">Показать панель управления</button>
+        </div>
     </div>
 
     <script>
-        // ================== КОНФИГУРАЦИЯ ==================
-        const MASTER_CODE = "NIGHT_ADMIN_2024"; // Мастер-код для доступа к админке
-        let currentUser = "User_" + Math.floor(Math.random() * 10000);
-        let allChats = {}; // { userId: { messages: [{user, ai}], username } }
-        let selectedUserId = null;
+        // ========== КОНФИГУРАЦИЯ ==========
+        const ADMIN_CODE = "ADMIN"; // Мастер-код для админки
+        let currentUser = null;
+        let allChats = {}; // Структура: { "username": { messages: [{sender, text}], online: true } }
+        let selectedAdminUser = null;
+        let messageQueue = {}; // Очередь сообщений, ожидающих ответа от админа: { "username": [message1, message2] }
 
-        // ================== ИНИЦИАЛИЗАЦИЯ ИНТЕРФЕЙСА ==================
-        document.addEventListener('DOMContentLoaded', function() {
-            // Имитация печатающего текста в приветствии
-            new Typed('#typed', {
-                strings: ['Я умею писать код.', 'Я генерирую изображения.', 'Я решаю сложные задачи.'],
-                typeSpeed: 50,
-                backSpeed: 30,
-                loop: true
-            });
-
-            // Обработчик отправки сообщения пользователем
-            document.getElementById('sendBtn').addEventListener('click', sendUserMessage);
-            document.getElementById('userInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') sendUserMessage();
-            });
-
-            // Обработчик доступа к админке
-            document.getElementById('adminAccessBtn').addEventListener('click', function() {
-                const code = document.getElementById('adminCode').value;
-                if (code === MASTER_CODE) {
-                    document.getElementById('adminPanel').classList.remove('hidden');
-                    loadChatsForAdmin();
-                    setInterval(loadChatsForAdmin, 3000); // Обновлять список каждые 3 сек
-                    alert("Доступ разрешён! Панель управления активирована.");
-                } else {
-                    alert("Неверный мастер-код! Доступ запрещён.");
-                }
-            });
-
-            // Обработчик отправки ответа от имени ИИ
-            document.getElementById('sendResponseBtn').addEventListener('click', sendAIResponse);
-        });
-
-        // ================== ФУНКЦИИ ЧАТА ==================
-        function sendUserMessage() {
-            const input = document.getElementById('userInput');
-            const message = input.value.trim();
-            if (!message) return;
-
-            // Добавляем сообщение пользователя в интерфейс
-            addMessageToUI('user', message);
-            input.value = '';
-
-            // Сохраняем в "базу" (allChats)
-            if (!allChats[currentUser]) {
-                allChats[currentUser] = { messages: [], username: currentUser };
+        // ========== ФУНКЦИИ ЛОГИНА ==========
+        function login() {
+            const usernameInput = document.getElementById('usernameInput');
+            const username = usernameInput.value.trim();
+            if (!username) {
+                document.getElementById('loginStatus').textContent = "Логин не может быть пустым!";
+                return;
             }
-            allChats[currentUser].messages.push({ user: message, ai: null });
-
-            // Имитация "думания" ИИ
-            const thinkingMsg = addMessageToUI('ai', '');
-            const thinkingEl = thinkingMsg.querySelector('.ai-text');
-            thinkingEl.innerHTML = '<strong>Night AI:</strong> <span class="typing"></span><span class="typing"></span><span class="typing"></span>';
-
-            // Через 2-5 секунд можно будет ответить из админки
-            setTimeout(() => {
-                if (allChats[currentUser].messages[allChats[currentUser].messages.length - 1].ai === null) {
-                    thinkingEl.innerHTML = '<strong>Night AI:</strong> Обрабатываю запрос... (ожидайте ответа)';
-                }
-            }, 2000);
-        }
-
-        function addMessageToUI(sender, text) {
-            const chatBox = document.getElementById('chatBox');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = sender === 'user' ? 'message user-message' : 'message ai-message';
-            messageDiv.innerHTML = `<strong>${sender === 'user' ? 'Вы' : 'Night AI'}:</strong> <span class="${sender}-text">${text}</span>`;
-            chatBox.appendChild(messageDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-            return messageDiv;
-        }
-
-        // ================== ФУНКЦИИ АДМИНКИ ==================
-        function loadChatsForAdmin() {
-            const chatList = document.getElementById('chatList');
-            chatList.innerHTML = '';
-            for (const [userId, data] of Object.entries(allChats)) {
-                const lastMsg = data.messages.slice(-1)[0];
-                const chatItem = document.createElement('div');
-                chatItem.className = 'chat-item';
-                chatItem.innerHTML = `<strong>${data.username}</strong><br><small>${lastMsg ? lastMsg.user : 'Нет сообщений'}</small>`;
-                chatItem.addEventListener('click', () => {
-                    selectedUserId = userId;
-                    document.getElementById('responseInput').placeholder = `Ответ для ${data.username}...`;
-                    Array.from(chatList.children).forEach(item => item.style.background = '');
-                    chatItem.style.background = 'rgba(100, 100, 255, 0.3)';
-                });
-                chatList.appendChild(chatItem);
-            }
-        }
-
-        function sendAIResponse() {
-            const responseInput = document.getElementById('responseInput');
-            const response = responseInput.value.trim();
-            if (!response || !selectedUserId) {
-                alert("Выберите диалог и введите ответ!");
+            if (username.length < 2) {
+                document.getElementById('loginStatus').textContent = "Логин слишком короткий!";
                 return;
             }
 
-            // Находим последнее сообщение без ответа ИИ
-            const userChat = allChats[selectedUserId];
-            const lastMsg = userChat.messages.slice(-1)[0];
-            if (lastMsg && lastMsg.ai === null) {
-                lastMsg.ai = response;
-
-                // Если это текущий пользователь в чате, обновляем интерфейс
-                if (selectedUserId === currentUser) {
-                    const aiMessages = document.querySelectorAll('.ai-message');
-                    const lastAiMsg = aiMessages[aiMessages.length - 1];
-                    if (lastAiMsg && lastAiMsg.querySelector('.ai-text').innerText.includes('ожидайте')) {
-                        lastAiMsg.querySelector('.ai-text').innerHTML = `<strong>Night AI:</strong> ${response}`;
-                    }
-                }
-
-                responseInput.value = '';
-                alert("Ответ отправлен как Night AI!");
+            // Регистрируем пользователя
+            if (!allChats[username]) {
+                allChats[username] = { messages: [], online: true };
+                // Приветственное сообщение от ИИ
+                allChats[username].messages.push({ sender: "Night AI", text: `Привет, ${username}! Я Night AI. Задай мне любой вопрос.` });
             } else {
-                alert("Для этого пользователя нет ожидающих запросов.");
+                allChats[username].online = true;
+            }
+
+            currentUser = username;
+            document.getElementById('currentUserName').textContent = username;
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('chatScreen').classList.remove('hidden');
+            updateChatLog();
+            document.getElementById('userInput').focus();
+        }
+
+        // ========== ОСНОВНЫЕ ФУНКЦИИ ЧАТА ==========
+        function sendMessage() {
+            const input = document.getElementById('userInput');
+            const text = input.value.trim();
+            if (!text || !currentUser) return;
+
+            // Добавляем сообщение пользователя
+            allChats[currentUser].messages.push({ sender: currentUser, text: text });
+            input.value = "";
+            updateChatLog();
+
+            // Ставим статус "ИИ печатает"
+            document.getElementById('aiStatus').textContent = "Night AI печатает...";
+            document.getElementById('sendBtn').disabled = true;
+
+            // Помещаем сообщение в очередь для админ-ответа
+            if (!messageQueue[currentUser]) messageQueue[currentUser] = [];
+            messageQueue[currentUser].push(text);
+
+            // Авто-ответ через 3 секунды, если админ не ответит (запасной вариант)
+            setTimeout(() => {
+                if (messageQueue[currentUser] && messageQueue[currentUser].length > 0) {
+                    const lastUserMessage = messageQueue[currentUser][messageQueue[currentUser].length - 1];
+                    const autoResponses = [
+                        "Интересный вопрос! Дайте мне немного времени на размышление.",
+                        "Я анализирую ваш запрос. Пожалуйста, подождите.",
+                        "Это сложная тема. Я скоро дам развёрнутый ответ.",
+                        "Пока вы ждёте, может, зададите ещё один вопрос?"
+                    ];
+                    const autoReply = autoResponses[Math.floor(Math.random() * autoResponses.length)];
+                    allChats[currentUser].messages.push({ sender: "Night AI", text: autoReply });
+                    updateChatLog();
+                    document.getElementById('aiStatus').textContent = "Night AI онлайн.";
+                    document.getElementById('sendBtn').disabled = false;
+                }
+            }, 3000);
+        }
+
+        function updateChatLog() {
+            const chatLog = document.getElementById('chatLog');
+            if (!currentUser || !allChats[currentUser]) return;
+            chatLog.innerHTML = "";
+            allChats[currentUser].messages.forEach(msg => {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${msg.sender === currentUser ? 'user-message' : 'ai-message'}`;
+                messageDiv.innerHTML = `<div class="message-sender">${msg.sender}</div>${msg.text}`;
+                chatLog.appendChild(messageDiv);
+            });
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+
+        // ========== АДМИН-ПАНЕЛЬ ==========
+        function toggleAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            panel.classList.toggle('hidden');
+        }
+
+        function checkAdminCode() {
+            const code = document.getElementById('adminCodeInput').value;
+            if (code === ADMIN_CODE) {
+                document.getElementById('adminChatsContainer').classList.remove('hidden');
+                updateAdminChatList();
+                setInterval(updateAdminChatList, 2000); // Обновлять список каждые 2 секунды
+            } else {
+                alert("Неверный мастер-код!");
             }
         }
+
+        function updateAdminChatList() {
+            const adminChatsDiv = document.getElementById('adminChats');
+            adminChatsDiv.innerHTML = "";
+            for (const username in allChats) {
+                const chatItem = document.createElement('div');
+                chatItem.className = 'admin-chat-item';
+                const lastMsg = allChats[username].messages.slice(-1)[0];
+                chatItem.innerHTML = `<strong>${username}</strong>: ${lastMsg ? lastMsg.text : 'нет сообщений'}`;
+                chatItem.onclick = () => {
+                    selectedAdminUser = username;
+                    document.getElementById('selectedUser').textContent = username;
+                    // Подсветка выбранного
+                    document.querySelectorAll('.admin-chat-item').forEach(item => item.style.background = '');
+                    chatItem.style.background = '#1c2b3a';
+                };
+                adminChatsDiv.appendChild(chatItem);
+            }
+        }
+
+        function sendAdminResponse() {
+            const responseText = document.getElementById('adminResponse').value.trim();
+            if (!selectedAdminUser || !responseText) {
+                alert("Выберите пользователя и введите ответ!");
+                return;
+            }
+
+            // Добавляем ответ от имени Night AI
+            allChats[selectedAdminUser].messages.push({ sender: "Night AI", text: responseText });
+            // Убираем сообщение из очереди ожидания
+            if (messageQueue[selectedAdminUser]) {
+                messageQueue[selectedAdminUser].shift();
+            }
+
+            // Если это текущий пользователь, обновляем его чат и статус
+            if (selectedAdminUser === currentUser) {
+                updateChatLog();
+                document.getElementById('aiStatus').textContent = "Night AI онлайн.";
+                document.getElementById('sendBtn').disabled = false;
+            }
+
+            document.getElementById('adminResponse').value = "";
+            updateAdminChatList();
+            alert("Ответ отправлен как Night AI!");
+        }
+
+        // ========== ОБРАБОТКА КЛАВИШ ==========
+        document.getElementById('userInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+        document.getElementById('adminResponse').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' && e.ctrlKey) sendAdminResponse();
+        });
     </script>
 </body>
 </html>
